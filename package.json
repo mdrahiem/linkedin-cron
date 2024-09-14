@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "google-auth-library": "^9.14.1",
+    "googleapis": "^144.0.0",
     "node-cron": "^3.0.3"
   }
 }
