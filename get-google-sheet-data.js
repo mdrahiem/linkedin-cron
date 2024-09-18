@@ -27,25 +27,17 @@ async function getGoogleSheetData(spreadsheetId, range) {
       spreadsheetId,
       range,
     });
-
     const rows = response.data.values;
-    if (rows.length) {
-      // Assuming the first row contains headers
-      const headers = rows[0];
-      const data = rows.slice(1).map((row) => {
-        let rowData = {};
-        headers.forEach((header, index) => {
-          rowData[header] = row[index];
-        });
-        return rowData;
-      });
-      return data;
+    if (rows && rows.length > 0) {
+      const [postText, imageDescription, imageTitle] = rows[0];
+      return { postText, imageDescription, imageTitle };
     } else {
       console.log("No data found.");
       return null;
     }
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error fetching data from Google Sheets:", error);
+    throw error;
   }
 }
 

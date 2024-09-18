@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import cron from "node-cron";
+import path from "path";
 import { getGoogleSheetData } from "./get-google-sheet-data.js";
 import { postToLinkedIn } from "./post-to-linkedin.js";
 
@@ -12,11 +13,31 @@ const RANGE = process.env.GOOGLE_SPREADSHEET_RANGE;
 async function processAndPost() {
   try {
     console.log("Fetching data from Google Sheets...", SPREADSHEET_ID, RANGE);
-    const data = await getGoogleSheetData(SPREADSHEET_ID, RANGE);
-    console.log("Data fetched:", data);
-    if (data && data.length > 0) {
-      const postContent = formatDataForLinkedIn(data[0]); // Format the first row of data for posting
-      await postToLinkedIn(LINKEDIN_ACCESS_TOKEN, postContent);
+    const { postText, imageDescription, imageTitle } = await getGoogleSheetData(
+      SPREADSHEET_ID,
+      RANGE,
+    );
+    const imagePath = path.join(
+      process.cwd(),
+      "linkedin-images",
+      "Fira Code LinkedIn Post.png",
+    );
+    console.log(
+      "Data fetched:",
+      postText,
+      imagePath,
+      imageDescription,
+      imageTitle,
+    );
+    if (postText && postText.length > 0) {
+      const postContent = formatDataForLinkedIn(postText); // Format the first row of data for posting
+      await postToLinkedIn(
+        LINKEDIN_ACCESS_TOKEN,
+        postContent,
+        imagePath,
+        imageDescription,
+        imageTitle,
+      );
       console.log("Posted to LinkedIn successfully");
     } else {
       console.log("No data to post");
@@ -33,7 +54,7 @@ function formatDataForLinkedIn(data) {
 }
 
 // Schedule the task to run every hour
-cron.schedule("0/2 * * * * *", () => {
+cron.schedule("*/2 * * * * *", () => {
   console.log("Running scheduled task");
   processAndPost();
 });
