@@ -3,6 +3,7 @@ import cron from "node-cron";
 import path from "path";
 import { getGoogleSheetData } from "./get-google-sheet-data.js";
 import { postToLinkedIn } from "./post-to-linkedin.js";
+import { postToTwitter } from "./post-to-twitter.js";
 
 dotenv.config();
 
@@ -37,8 +38,12 @@ async function processAndPost() {
         imagePath,
         imageDescription,
         imageTitle,
+        ç,
       );
       console.log("Posted to LinkedIn successfully");
+
+      await postToTwitter(postText, imagePath);
+      console.log("Posted to Twitter successfully");
     } else {
       console.log("No data to post");
     }
@@ -54,7 +59,7 @@ function formatDataForLinkedIn(data) {
 }
 
 // Schedule the task to run every hour
-cron.schedule("*/2 * * * * *", () => {
+cron.schedule("*/5 * * * * *", () => {
   console.log("Running scheduled task");
   processAndPost();
 });

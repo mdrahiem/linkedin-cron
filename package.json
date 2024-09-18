@@ -16,6 +16,7 @@
     "google-auth-library": "^9.14.1",
     "googleapis": "^144.0.0",
     "node-cron": "^3.0.3",
-    "open": "^10.1.0"
+    "open": "^10.1.0",
+    "twitter-api-v2": "^1.17.2"
   }
 }
