@@ -10,6 +10,7 @@ dotenv.config();
 const LINKEDIN_ACCESS_TOKEN = process.env.LINKEDIN_ACCESS_TOKEN;
 const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID;
 const RANGE = process.env.GOOGLE_SPREADSHEET_RANGE;
+const nameOfImageFromLocalDisk = process.env.IMAGE_NAME;
 
 async function processAndPost() {
   try {
@@ -21,7 +22,7 @@ async function processAndPost() {
     const imagePath = path.join(
       process.cwd(),
       "linkedin-images",
-      "Fira Code LinkedIn Post.png",
+      `${nameOfImageFromLocalDisk}.png`,
     );
     console.log(
       "Data fetched:",
@@ -38,10 +39,8 @@ async function processAndPost() {
         imagePath,
         imageDescription,
         imageTitle,
-        ç,
       );
       console.log("Posted to LinkedIn successfully");
-
       await postTwitterThread(postText, imagePath);
       console.log("Posted to Twitter successfully");
     } else {
