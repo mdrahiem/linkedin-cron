@@ -41,8 +41,10 @@ async function processAndPost() {
         imageTitle,
       );
       console.log("Posted to LinkedIn successfully");
-      await postTwitterThread(postText, imagePath);
-      console.log("Posted to Twitter successfully");
+
+      // LETS FOCUS ON LINKEDIN FOR NOW
+      // await postTwitterThread(postText, imagePath);
+      // console.log("Posted to Twitter successfully");
     } else {
       console.log("No data to post");
     }
@@ -54,7 +56,8 @@ async function processAndPost() {
 function formatDataForLinkedIn(data) {
   // Implement your logic to format the data into a LinkedIn post
   // This is just a simple example
-  return `Check out our latest update:\n${JSON.stringify(data)}`;
+  // return `Check out our latest update:\n${JSON.stringify(data)}`;
+  return data;
 }
 
 // Schedule the task to run every hour
