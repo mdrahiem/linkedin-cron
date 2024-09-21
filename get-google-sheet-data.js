@@ -1,14 +1,10 @@
 import { google } from "googleapis";
 import { JWT } from "google-auth-library";
 import { readFile } from "fs/promises";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const credentialsPath = join(__dirname, "..", "credentials.json");
-const credentials = JSON.parse(await readFile(credentialsPath, "utf8"));
+const credentials = JSON.parse(
+  await readFile("/etc/secrets/credentials.json", "utf8"),
+);
 
 async function getGoogleSheetData(spreadsheetId, range) {
   try {

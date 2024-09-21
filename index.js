@@ -32,14 +32,14 @@ async function processAndPost() {
       imageTitle,
     );
     if (postText && postText.length > 0) {
-      const postContent = formatDataForLinkedIn(postText); // Format the first row of data for posting
-      await postToLinkedIn(
-        LINKEDIN_ACCESS_TOKEN,
-        postContent,
-        imagePath,
-        imageDescription,
-        imageTitle,
-      );
+      // const postContent = formatDataForLinkedIn(postText); // Format the first row of data for posting
+      // await postToLinkedIn(
+      //   LINKEDIN_ACCESS_TOKEN,
+      //   postContent,
+      //   imagePath,
+      //   imageDescription,
+      //   imageTitle,
+      // );
       console.log("Posted to LinkedIn successfully");
 
       // LETS FOCUS ON LINKEDIN FOR NOW
