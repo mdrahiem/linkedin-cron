@@ -1,3 +1,6 @@
+const port = process.env.PORT || 3000;
+const host = "RENDER" in process.env ? `0.0.0.0` : `localhost`;
+
 import Fastify from "fastify";
 import { processAndPost } from "./index.js";
 
@@ -12,9 +15,8 @@ fastify.get("/", async function handler(request, reply) {
 });
 
 // Run the server!
-const port = process.env.PORT || 3000;
 try {
-  await fastify.listen({ port });
+  await fastify.listen({ port, host });
 } catch (err) {
   fastify.log.error(err);
   process.exit(1);
