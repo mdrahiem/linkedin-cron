@@ -1,10 +1,14 @@
 import { google } from "googleapis";
 import { JWT } from "google-auth-library";
 import { readFile } from "fs/promises";
+import dotenv from "dotenv";
 
-const credentials = JSON.parse(
-  await readFile("/etc/secrets/credentials.json", "utf8"),
-);
+dotenv.config();
+
+console.log(process.env);
+
+const credentialsPath = "credentials.json";
+const credentials = JSON.parse(await readFile(credentialsPath, "utf8"));
 
 async function getGoogleSheetData(spreadsheetId, range) {
   try {

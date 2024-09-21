@@ -64,6 +64,7 @@ function formatDataForLinkedIn(data) {
 // cron.schedule("*/1000 * * * * *", () => {
 //   console.log("Running scheduled task");
 // });
-processAndPost();
 
 console.log("Scheduler started");
+
+export { processAndPost };
