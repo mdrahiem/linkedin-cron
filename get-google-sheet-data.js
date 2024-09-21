@@ -5,9 +5,10 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log(process.env);
-
-const credentialsPath = "credentials.json";
+const credentialsPath =
+  process.env.NODE_ENV === "production"
+    ? "/etc/secrets/credentials.json" // In case of Render.com
+    : "credentials.json";
 const credentials = JSON.parse(await readFile(credentialsPath, "utf8"));
 
 async function getGoogleSheetData(spreadsheetId, range) {
